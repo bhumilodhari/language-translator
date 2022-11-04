@@ -1,0 +1,56 @@
+.container {
+    /* min-width: 600px; */
+    /* min-height: 400px; */
+    background: white;
+    width:  100%;
+    padding:  15px;
+}
+
+.wrapper {
+    border: 1px solid black;
+    border: none;
+}
+
+.wrapper .text-container {
+    display: flex;
+    border-bottom: 1px;
+}
+
+.text-container textarea {
+    height: 100px;
+    width: 100%; 
+    /* border: none;
+    outline:  none;
+    resize: none; */
+    font-size: 18px;
+    padding:  10px 15px;
+}
+
+.text-container to {
+    border-left: 2px gray;
+}
+
+.controls,
+li,
+.icons {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.controls {
+    list-style: none;
+}
+
+.controls .row .icons {
+    width: 38%;
+}
+
+.controls .row .icons i {
+    width: 50px;
+    font-size: 10px;
+}
+
+.btn {
+ background-color: rgb(16, 144, 255);
+}
