@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import {
     Form,
     TextArea,
@@ -8,22 +8,38 @@ import "./Translate.css";
 import axios from 'axios';
 import { FiCopy } from 'react-icons/fi';
 import { FaExchangeAlt } from 'react-icons/fa';
+// import { Translate } from '@google-cloud/translate/build/src/v2';
 
-export default function Translate() {
+// const { Translate } = require('@google-cloud/translate').v2;
+
+// Creates a client
+// const translate = new Translate();
+
+// async function listLanguages() {
+//     // Lists available translation language with their names in English (the default).
+//     const [languages] = await translate.getLanguages();
+
+//     console.log('Languages:');
+//     languages.forEach(language => console.log(language));
+// }
+
+// listLanguages();
+
+export default function TranslateLang() {
     const [inputText, setInputText] = useState('');
     const [resultText, setResultText] = useState('');
-    const [selectedLanguageKey, setLanguageKey] = useState('')
-    const [languagesList, setLanguagesList] = useState([])
-    const [detectLanguageKey, setdetectedLanguageKey] = useState('')
+    const [selectedLanguageKey, setLanguageKey] = useState('hi');
+    const [languagesList, setLanguagesList] = useState([]);
+    const [detectLanguageKey, setdetectedLanguageKey] = useState('');
 
-    const getLanguageSource = () => {
+    const getLanguageSource = useCallback(() => {
         axios.post(`https://libretranslate.de/detect`, {
             q: inputText
         })
             .then((response) => {
                 setdetectedLanguageKey(response.data[0].language)
             })
-    }
+    }, [inputText])
     const translateText = () => {
         setResultText(inputText)
 
@@ -45,6 +61,10 @@ export default function Translate() {
     }
 
     const exchangeHandlar = () => {
+        // let tempText = setResultText;
+        // let tempLang = selectedLanguagekey;
+        // setResultText = resultText;
+        // resultText = tempText;
 
     }
 
@@ -59,7 +79,7 @@ export default function Translate() {
             })
 
         getLanguageSource()
-    }, [inputText]);
+    }, [inputText, getLanguageSource]);
 
     return (
         <div>
@@ -91,6 +111,7 @@ export default function Translate() {
                                         onChange={languageKey}
                                     >
                                         {languagesList.map((language) => {
+                                            // console.log(language.code)
                                             return (
                                                 <option value={language.code}>
                                                     {language.name}
@@ -115,7 +136,7 @@ export default function Translate() {
                                     >
                                         {languagesList.map((language) => {
                                             return (
-                                                <option value={language.code}>
+                                                <option key={language.code} selected={language.code === 'hi'} value={language.code}>
                                                     {language.name}
                                                 </option>
                                             )
